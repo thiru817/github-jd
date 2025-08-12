@@ -1,8 +1,10 @@
-FROM nginx:alpine
+FROM python:3.9
 
-# Copy static website files to Nginx html folder
-COPY . /usr/share/nginx/html
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
 
-EXPOSE 80
+EXPOSE 5000
+CMD ["python", "app.py"]
 
-CMD ["nginx", "-g", "daemon off;"]
